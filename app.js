@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+var db = require('./db');
+
 var app = express();
 
 // view engine setup
@@ -24,6 +26,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+
+// api routes
+app.get('/api/latest/imagesearch/', (req, res, next) => {
+    //return latest search terms used.
+    return res.json(db.lookupLatestSearchs());
+})
+.catch(next);
+
+app.get('/api/imagesearch/:searchTerm', (req, res, next) => {
+    //req.params.searchTerm and req.query
+    db.insertSearchTerm(req.params.searchTerm);
+    
+})
+.catch(next);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
