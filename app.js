@@ -37,7 +37,7 @@ app.get('/api/latest/imagesearch/', (req, res, next) => {
 app.get('/api/imagesearch/:searchTerm', (req, res, next) => {
     //req.params.searchTerm and req.query
     db.insertSearchTerm(req.params.searchTerm);
-    
+    // implement google custom search api
 })
 .catch(next);
 
