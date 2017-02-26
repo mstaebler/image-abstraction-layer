@@ -9,6 +9,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var db = require('./db');
+var search = require('./search');
 
 var app = express();
 
@@ -37,7 +38,8 @@ app.get('/api/latest/imagesearch/', (req, res, next) => {
 app.get('/api/imagesearch/:searchTerm', (req, res, next) => {
     //req.params.searchTerm and req.query
     db.insertSearchTerm(req.params.searchTerm);
-    // implement google custom search api
+    // return result of query from custom google search
+    return search.query(req.params.searchTerm, req.query);
 })
 .catch(next);
 
