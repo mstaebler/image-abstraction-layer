@@ -1,8 +1,14 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-image:url(https://www.toptal.com/designers/subtlepatterns/patterns/seigaiha.png);
 }
 
-a {
-  color: #00B7FF;
+.title {
+    margin: 3em;
+    text-align: center;
 }

@@ -2,17 +2,16 @@
 
 require('dotenv').config();
 
-var Promise = require('bluebird'),
-    MongoClient = require('mongodb').MongoClient,
-    //ObjectId = require('mongodb').ObjectId,
-    db;
+var Promise = require('bluebird');
+var MongoClient = require('mongodb').MongoClient;
+var db;
 
 Promise.promisifyAll(MongoClient);
 
 module.exports = function() {
   return MongoClient.connectAsync(process.env.MONGO_CONNECTION_STRING)
   .then(connection => {
-    db = connection.collection('searchTerms');
+    db = connection.collection('searchTermList');
     return {
       insertSearchTerm,
       lookupLatestSearchs
@@ -21,7 +20,7 @@ module.exports = function() {
 };
 
 function insertSearchTerm(searchTerm){
-  return Promise.resolve(db.insertOne({search: searchTerm}));
+  return Promise.resolve(db.insertOne({term: searchTerm, when: new Date()}));
 }
 
 function lookupLatestSearchs() {
