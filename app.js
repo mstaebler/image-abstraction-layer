@@ -6,6 +6,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var Promise = require('bluebird');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -41,8 +42,8 @@ app.get('/api/imagesearch/:searchTerm', (req, res, next) => {
     //req.params.searchTerm and req.query
     //db.insertSearchTerm(req.params.searchTerm);
     // return result of query from custom google search
-    return res.json(search.search(req.params.searchTerm, req.query));
-
+    return search.search(req.params.searchTerm, req.query)
+           .then(x => res.json(x));
 });
 // .catch(next);
 
