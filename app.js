@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -32,16 +34,16 @@ app.use('/users', users);
 app.get('/api/latest/imagesearch/', (req, res, next) => {
     //return latest search terms used.
     return res.json(db.lookupLatestSearchs());
-})
-.catch(next);
+});
+// .catch(next);
 
 app.get('/api/imagesearch/:searchTerm', (req, res, next) => {
     //req.params.searchTerm and req.query
-    db.insertSearchTerm(req.params.searchTerm);
+    //db.insertSearchTerm(req.params.searchTerm);
     // return result of query from custom google search
-    return search.query(req.params.searchTerm, req.query);
-})
-.catch(next);
+    return res.json(search(req.params.searchTerm, req.query));
+});
+// .catch(next);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
